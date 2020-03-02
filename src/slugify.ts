@@ -53,10 +53,8 @@ const sanitizeText = (text: string) => {
 
             // If the current character is a space, and the last character in the sanitized string is too
             // then skip this one
-            if (char === ' ') {
-                if (last === ' ')
-                    continue;
-            }
+            if (char === ' ' && last === ' ') continue;
+
             sanitizedString += char;
         }
     }
