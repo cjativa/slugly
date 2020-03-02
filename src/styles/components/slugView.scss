@@ -1,0 +1,82 @@
+.slug-view {
+  &__add {
+    display: grid;
+    grid-template-rows: 30px 1fr;
+    margin: 20px 0px;
+  }
+
+  .options-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 15px;
+    width: fit-content;
+  }
+
+  .buttons-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 15px;
+    width: max-content;
+    margin: 35px 0px;
+  }
+
+  .btn {
+    width: 100px;
+    height: 45px;
+    border-radius: 8px;
+    border-style: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+
+    &.slugify {
+      background-color: #7b506f;
+
+      &:hover {
+        background-color: #613f57;
+      }
+    }
+
+    &.copy {
+      background-color: #dd99bb;
+      &:hover {
+        background-color: #c386a5;
+      }
+    }
+    &.reset {
+      background-color: #d5bdb5;
+      &:hover {
+        background-color: #b9a59e;
+      }
+    }
+  }
+}
+
+.input-label {
+  font-weight: bold;
+}
+
+.input {
+  height: 30px;
+  background: white;
+  padding: 5px 10px;
+  border: 1px solid gray;
+  border-radius: 8px;
+  width: 500px;
+}
+
+.field {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  height: min-content;
+}
+
+.link {
+  font-size: 18px;
+  color: #4f4291;
+  cursor: pointer;
+
+  &:hover{
+      color: #262049;
+  }
+}

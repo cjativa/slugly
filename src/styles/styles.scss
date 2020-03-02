@@ -1,0 +1,29 @@
+body {
+  font-family: "Nunito";
+  margin-left: 25px;
+  background-color: #f7f6f6;
+
+  width: fit-content;
+}
+
+p {
+  font-size: 20px;
+}
+
+ul {
+  list-style-type: none;
+  padding-inline-start: 0;
+  padding-inline-end: 0;
+}
+
+label {
+    
+}
+
+.italic {
+  font-style: italic;
+}
+
+@import "./components/app.scss";
+@import "./components/slugHeader.scss";
+@import "./components/slugView.scss";
