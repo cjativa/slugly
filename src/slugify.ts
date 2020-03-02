@@ -6,8 +6,7 @@ export interface SlugConfig {
 
 export const getSluggedText = (text: string, options: SlugConfig): string => {
 
-    // Make copy of the text with non-alphanumerics removed
-    let sluggedText = text.replace(/\W/g, '');
+    let sluggedText = sanitizeText(text);
 
     // Use underscores if desired, otherwise, uses dashes by default
     if (options.useUnderscores) sluggedText = sluggedText.replace(/ /g, '_');
@@ -28,7 +27,6 @@ export const getSluggedText = (text: string, options: SlugConfig): string => {
             if (typeof firstChar === 'string')
                 firstChar = firstChar.toUpperCase();
 
-            console.log(`${firstChar} ${pieces.slice(1, pieces.length)}`);
             return `${firstChar}${pieces.slice(1, pieces.length)}`;
         });
 
@@ -36,5 +34,32 @@ export const getSluggedText = (text: string, options: SlugConfig): string => {
         sluggedText = slugPieces.join('-');
     }
 
+    // Make copy of the text with non-alphanumerics removed
     return sluggedText;
+}
+
+const sanitizeText = (text: string) => {
+    // The string where permitted characters (spaces or alphanumeric) from the original text will be stored 
+    let sanitizedString = ''
+
+    // Check each character in the text
+    for (let i = 0; i < text.length; i++) {
+
+        const char = text[i];
+
+        // Sanitize to only alpha numerics and spaces
+        if ((char.match(/^[a-z0-9]+$/i) || char === ' ')) {
+            const last = sanitizedString[sanitizedString.length - 1];
+
+            // If the current character is a space, and the last character in the sanitized string is too
+            // then skip this one
+            if (char === ' ') {
+                if (last === ' ')
+                    continue;
+            }
+            sanitizedString += char;
+        }
+    }
+
+    return sanitizedString;
 }

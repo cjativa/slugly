@@ -19,9 +19,12 @@ export const SlugView = () => {
         //{ id: 'setMaxLength', label: 'Set max length (including dashes)' }
     ];
 
-    const onTextInput = (event: any) => {
-        setInput(event.target.value);
+    const onTextInput = (event: any) => setInput(event.target.value);
+    const doReset = () => {
+        setInput('');
+        setSluggedText('');
     }
+
 
     const doSlugify = () => {
 
@@ -37,9 +40,6 @@ export const SlugView = () => {
 
     }
 
-    const doReset = () => {
-
-    }
 
     const buttons = [
         { id: 'slugify', text: 'Slugify it', onClick: doSlugify },
@@ -50,14 +50,19 @@ export const SlugView = () => {
     return (
         <div className="slug-view">
             <p>Turn your boring text <span className='italic'>Slugly</span>!</p>
+
+            {/** Input section for the text */}
             <div className="field">
                 <label className="input-label">Enter your ordinary text</label>
-                <input placeholder="Anything entered here will be slugged &mdash; no take backs" type="text" className="input" onInput={(event) => onTextInput(event)} />
+                <input placeholder="Anything entered here will be slugged &mdash; no take backs" type="text" className="input" onChange={(event) => onTextInput(event)} value={input} />
             </div>
+
+            {/** Slug configuration section */}
             <div className="slug-view__add">
                 <a onClick={() => setShowAdditional(!showAdditional)} className="link">Add some spice</a>
                 {showAdditional &&
                     <ul className="options-list">
+                        {/** Iterate through each of our options and show them */}
                         {options.map((option, index) => {
                             return (
                                 <li key={index}>
@@ -70,11 +75,16 @@ export const SlugView = () => {
                     </ul>
                 }
             </div>
+
+            {/** Display the sluggified text */}
             <div className="field">
                 <label className="input-label">Your new slugly text</label>
                 <input disabled placeholder="The slugged text will appear here" className="input" value={sluggedText} />
             </div>
+
+            {/** Buttons section */}
             <ul className="buttons-list">
+                {/** Display each available button */}
                 {buttons.map((button, index) => {
                     return (
                         <li key={index}><button id={button.id} className={`btn ${button.id}`} onClick={() => { button.onClick() }}>{button.text}</button></li>
