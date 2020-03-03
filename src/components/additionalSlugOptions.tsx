@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 
 export const AdditionalSlugOptions = (props) => {
 
-    const { options } = props;
+    const { setCapitalizeEveryFirst, capitalizeEveryFirst, setKeepCapitalization, keepCapitalization, setUseUnderscores, useUnderscores } = props;
+
+    // Available options list
+    const options = [
+        { id: 'capitalizeEveryFirst', label: 'Capitalize every first letter', onChange: setCapitalizeEveryFirst, checked: capitalizeEveryFirst },
+        { id: 'keepCapitalization', label: 'Keep current capitalization', onChange: setKeepCapitalization, checked: keepCapitalization },
+        { id: 'useUnderscores', label: 'Use underscores instead', onChange: setUseUnderscores, checked: useUnderscores },
+    ];
 
     return (
         <ul className="options-list">

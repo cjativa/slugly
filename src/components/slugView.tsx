@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { SlugConfig, getSluggedText } from './../slugify';
 import { AdditionalSlugOptions } from './additionalSlugOptions';
@@ -16,13 +15,6 @@ export const SlugView = () => {
     const [keepCapitalization, setKeepCapitalization] = useState(false);
     const [capitalizeEveryFirst, setCapitalizeEveryFirst] = useState(false);
     const [useUnderscores, setUseUnderscores] = useState(false);
-
-    // Available options list
-    const options = [
-        { id: 'capitalizeEveryFirst', label: 'Capitalize every first letter', onChange: setCapitalizeEveryFirst, checked: capitalizeEveryFirst },
-        { id: 'keepCapitalization', label: 'Keep current capitalization', onChange: setKeepCapitalization, checked: keepCapitalization },
-        { id: 'useUnderscores', label: 'Use underscores instead', onChange: setUseUnderscores, checked: useUnderscores },
-    ];
 
     /** Set the text input */
     const onTextInput = (event: any) => setInput(event.target.value);
@@ -44,18 +36,6 @@ export const SlugView = () => {
         setSluggedText(sText);
     }
 
-    /** Handles copying the slugged text to clipboard */
-    const doCopy = () => {
-
-    }
-
-    // Available action buttons
-    const buttons = [
-        { id: 'slugify', text: 'Slugify it', onClick: doSlugify },
-        { id: 'copy', text: 'Copy', onClick: doCopy },
-        { id: 'reset', text: 'Reset', onClick: doReset },
-    ];
-
     return (
         <div className="slug-view">
             <p>Turn your boring text <span className='italic'>Slugly</span>!</p>
@@ -69,7 +49,10 @@ export const SlugView = () => {
             {/** Slug configuration section */}
             <div className="slug-view__add">
                 <a onClick={() => setShowAdditional(!showAdditional)} className="link">Add some spice</a>
-                {showAdditional && <AdditionalSlugOptions options={options} />}
+                {showAdditional && <AdditionalSlugOptions
+                    setCapitalizeEveryFirst={setCapitalizeEveryFirst} capitalizeEveryFirst={capitalizeEveryFirst}
+                    setKeepCapitalization={setKeepCapitalization} keepCapitalization={keepCapitalization}
+                    setUseUnderscores={setUseUnderscores} useUnderscores={useUnderscores} />}
             </div>
 
             {/** Display the sluggified text */}
@@ -79,7 +62,7 @@ export const SlugView = () => {
             </div>
 
             {/** Buttons section */}
-            <ActionButtons buttons={buttons} />
+            <ActionButtons doSlugify={doSlugify} doReset={doReset} sluggedText={sluggedText} />
         </div>
     )
 }
