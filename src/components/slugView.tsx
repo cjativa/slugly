@@ -1,31 +1,39 @@
 import React, { useState } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { SlugConfig, getSluggedText } from './../slugify';
+import { AdditionalSlugOptions } from './additionalSlugOptions';
+import { ActionButtons } from './actionButtons';
 
 export const SlugView = () => {
 
+    // State variables for input, slugged text, and displaying additional options
     const [input, setInput] = useState('');
     const [sluggedText, setSluggedText] = useState('');
     const [showAdditional, setShowAdditional] = useState(false);
 
+    // State variables for the additional options
     const [keepCapitalization, setKeepCapitalization] = useState(false);
     const [capitalizeEveryFirst, setCapitalizeEveryFirst] = useState(false);
     const [useUnderscores, setUseUnderscores] = useState(false);
 
+    // Available options list
     const options = [
         { id: 'capitalizeEveryFirst', label: 'Capitalize every first letter', onChange: setCapitalizeEveryFirst, checked: capitalizeEveryFirst },
         { id: 'keepCapitalization', label: 'Keep current capitalization', onChange: setKeepCapitalization, checked: keepCapitalization },
         { id: 'useUnderscores', label: 'Use underscores instead', onChange: setUseUnderscores, checked: useUnderscores },
-        //{ id: 'setMaxLength', label: 'Set max length (including dashes)' }
     ];
 
+    /** Set the text input */
     const onTextInput = (event: any) => setInput(event.target.value);
+
+    /** Resets the text input and the slugged text */
     const doReset = () => {
         setInput('');
         setSluggedText('');
     }
 
-
+    /** Handles slugification! */
     const doSlugify = () => {
 
         // Set the options for the slug operation and perform it
@@ -36,11 +44,12 @@ export const SlugView = () => {
         setSluggedText(sText);
     }
 
+    /** Handles copying the slugged text to clipboard */
     const doCopy = () => {
 
     }
 
-
+    // Available action buttons
     const buttons = [
         { id: 'slugify', text: 'Slugify it', onClick: doSlugify },
         { id: 'copy', text: 'Copy', onClick: doCopy },
@@ -60,20 +69,7 @@ export const SlugView = () => {
             {/** Slug configuration section */}
             <div className="slug-view__add">
                 <a onClick={() => setShowAdditional(!showAdditional)} className="link">Add some spice</a>
-                {showAdditional &&
-                    <ul className="options-list">
-                        {/** Iterate through each of our options and show them */}
-                        {options.map((option, index) => {
-                            return (
-                                <li key={index}>
-                                    <input type="checkbox" id={option.id} onChange={(e) => option.onChange(!option.checked)} checked={option.checked} />
-                                    <label htmlFor="keep-cap">{option.label}</label>
-                                </li>
-                            );
-                        })}
-
-                    </ul>
-                }
+                {showAdditional && <AdditionalSlugOptions options={options} />}
             </div>
 
             {/** Display the sluggified text */}
@@ -83,14 +79,7 @@ export const SlugView = () => {
             </div>
 
             {/** Buttons section */}
-            <ul className="buttons-list">
-                {/** Display each available button */}
-                {buttons.map((button, index) => {
-                    return (
-                        <li key={index}><button id={button.id} className={`btn ${button.id}`} onClick={() => { button.onClick() }}>{button.text}</button></li>
-                    )
-                })}
-            </ul>
+            <ActionButtons buttons={buttons} />
         </div>
     )
 }
