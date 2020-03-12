@@ -3,10 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/jest": "23.3.12",
-    "@types/node": "10.12.18",
-    "@types/react": "16.7.18",
-    "@types/react-dom": "16.0.11",
     "express": "^4.17.1",
     "node-sass": "^4.11.0",
     "react": "^16.13.0",
@@ -23,7 +19,7 @@
     "watch-server": "tsc -w -p server",
     "run-server": "nodemon dist/server/app.js",
     "server-dev": "concurrently \"npm run watch-server\" \"npm run run-server\"",
-    "postbuild": "mv build dist/"
+    "postbuild": "rm -rf dist/ && tsc -p server && mv build dist/ && cp package.json dist/ && cd dist && zip -r ../dist.zip *"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -36,6 +32,10 @@
   ],
   "devDependencies": {
     "@types/express": "^4.17.3",
+    "@types/jest": "^25.1.4",
+    "@types/node": "^13.9.0",
+    "@types/react": "^16.9.23",
+    "@types/react-dom": "^16.9.5",
     "concurrently": "^5.1.0",
     "nodemon": "^2.0.2"
   }
