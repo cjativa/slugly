@@ -17,9 +17,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "watch-server": "tsc -w -p server",
-    "run-server": "nodemon dist/server/app.js",
-    "server-dev": "concurrently \"npm run watch-server\" \"npm run run-server\"",
-    "postbuild": "rm -rf dist/ && tsc -p server && mv build dist/ && cp package.json dist/ && cd dist && zip -r ../dist.zip *"
+    "nodemon-server": "nodemon dist/server/app.js",
+    "server-dev": "concurrently \"npm run watch-server\" \"npm run nodemon-server\"",
+    "postbuild": "rm -rf dist/ && tsc -p server && mv build dist/ && cp package.json dist/ && cd dist && zip -r ../dist.zip *",
+    "app": "node server/app.js"
   },
   "eslintConfig": {
     "extends": "react-app"
