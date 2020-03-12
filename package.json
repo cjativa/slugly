@@ -19,7 +19,7 @@
     "watch-server": "tsc -w -p server",
     "nodemon-server": "nodemon dist/server/app.js",
     "server-dev": "concurrently \"npm run watch-server\" \"npm run nodemon-server\"",
-    "postbuild": "rm -rf dist/ && tsc -p server && mv build dist/ && cp package.json dist/ && cd dist && zip -r ../dist.zip *",
+    "postbuild": "rm -rf dist/ && tsc -p server && mv build dist/ && cp package.json dist/ && cp .npmrc dist && cd dist && zip -r ../dist.zip .[^.]*",
     "app": "node server/app.js"
   },
   "eslintConfig": {
