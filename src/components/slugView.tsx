@@ -19,6 +19,13 @@ export const SlugView = () => {
     /** Set the text input */
     const onTextInput = (event: any) => setInput(event.target.value);
 
+    /** On'enter' key press, execute slugification */
+    const keyPressed = (event: any) => {
+        if (event.key === 'Enter') {
+            doSlugify();
+        }
+    }
+
     /** Resets the text input and the slugged text */
     const doReset = () => {
         setInput('');
@@ -43,7 +50,7 @@ export const SlugView = () => {
             {/** Input section for the text */}
             <div className="field">
                 <label className="input-label">Enter your ordinary text</label>
-                <input placeholder="Anything entered here will be slugged &mdash; no take backs" type="text" className="input" onChange={(event) => onTextInput(event)} value={input} />
+                <input placeholder="Anything entered here will be slugged &mdash; no take backs" type="text" className="input" onChange={(event) => onTextInput(event)} value={input} onKeyPress={keyPressed} />
             </div>
 
             {/** Slug configuration section */}
