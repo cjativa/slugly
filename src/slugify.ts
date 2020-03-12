@@ -30,15 +30,17 @@ export const getSluggedText = (text: string, options: SlugConfig): string => {
             return `${firstChar}${pieces.slice(1, pieces.length)}`;
         });
 
-
         sluggedText = slugPieces.join('-');
     }
 
-    // Make copy of the text with non-alphanumerics removed
     return sluggedText;
 }
 
 const sanitizeText = (text: string) => {
+
+    // Trim leading and trailing whitespace
+    text = text.trim();
+
     // The string where permitted characters (spaces or alphanumeric) from the original text will be stored 
     let sanitizedString = ''
 
